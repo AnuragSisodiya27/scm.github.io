@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${title}"></title>
+</head>
+<body>
+
+	<section>
+
+		<div class="container">
+
+			<div class="row">
+				<div class="col-md-8 offset-md-2">
+					<div class="my-card mt-3">
+
+						<div th:if="${session.message}"
+							th:classappend="${session.message.type}" class="alert"
+							role="alert">
+							<p th:text="${session.message.content}"></p>
+
+							<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+						</div>
+
+						<h1 class="text-center">Registration Form</h1>
+						<form novalidate action="" th:action="@{/do_register}" method="post"
+							th:object="${user}">
+
+							<div class="row">
+
+
+
+								<div class="col-md-4 mb-3">
+									<label for="name">Name</label> <input name="name"
+										type="text"
+										th:classappend="${#fields.hasErrors('name') ? 'is-invalid':''}"
+										class="form-control " id="name"
+										th:value="${user.name}" required>
+									<div class="invalid-feedback"
+										th:each="e : ${#fields.errors('name')}"  text="${e}"></div>
+								</div>
+
+
+
+
+
+								<div class="col-md-4 mb-3">
+									<label for="validationServer02">Password</label> <input
+										name="password" type="password" class="form-control is-valid"
+										th:value="${user.password}" id="validationServer02"
+										value="Otto" required>
+									<div class="valid-feedback">Looks good!</div>
+								</div>
+
+
+
+
+								<div class="col-md-4 mb-3">
+									<label for="validationServerUsername">Email</label>
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<span class="input-group-text" id="inputGroupPrepend3">@</span>
+										</div>
+										<input name="email" type="email"
+											class="form-control is-invalid" id="validationServerUsername"
+											th:value="${user.email}"
+											aria-describedby="inputGroupPrepend3" required>
+										<div class="invalid-feedback">Please enter a correct
+											email.</div>
+									</div>
+								</div>
+
+							</div>
+
+
+
+
+							<div class="row">
+								<label for="validationServer02">Decription</label>
+								<textarea name="about" id="" cols="3" rows="5"
+									placeholder="Write Something.." th:value="${user.about}"></textarea>
+								<div class="invalid-feedback">Please enter atleast 50
+									words upto 1000 words</div>
+							</div>
+							
+							
+							
+
+							<div class="form-group">
+								<div class="form-check">
+									<input name="agreement" class="form-check-input is-invalid"
+										type="checkbox" value="true" id="invalidCheck3" required>
+									<label class="form-check-label" for="invalidCheck3">
+										Agree to terms and conditions </label>
+									<div class="invalid-feedback">You must agree before
+										submitting.</div>
+								</div>
+							</div>
+
+
+
+
+							<div class="text-center">
+								<button class="btn bg-primary text-white" type="submit">Submit</button>
+								<button class="btn bg-primary text-white" type="reset">Reset</button>
+							</div>
+
+						</form>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+
+	</section>
+
+</body>
+</html>
